@@ -26,7 +26,7 @@ Product-id   Price   Description
 - Each time a product is scanned successfully, it will be added to the current digital shopping cart, keeping track of all the items for this sale.
 - If a product was added by mistake, we can remove it from the current cart by product-id, the price will be displayed in negative.
 - In any moment, we can cancel the current sale, clearing out the cart.
-- When the sale is finished, the point of sales will check out, calculating the total price and displaying it. 
+- When the sale is finished, the point of sale will check out, calculating the total price and displaying it. 
 
 ## Rules
 

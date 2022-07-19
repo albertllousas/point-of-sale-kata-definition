@@ -1,4 +1,4 @@
-# Pont of sale - kata definition
+# Point of sale - kata definition
 
 > TDD is important. TDD works. TDD is a professional discipline that all programmers should learn and practice. But it is not TDD that causes good or bad designs. You do that.
 > 

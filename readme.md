@@ -6,10 +6,10 @@
 
 ## Description
 
-Code kata to practice outside in tdd inspired in [super market kata](http://codekata.com/kata/kata09-back-to-the-checkout/) but
+Code kata to practice outside in tdd inspired by [super market kata](http://codekata.com/kata/kata09-back-to-the-checkout/) but
 slightly different.
 
-The idea is to code a **Point of Sale**, by which we could calculate and checkout an ongoing sale in any supermarket.
+The idea is to code a **Point of Sale**, by which we could calculate and checkout an ongoing sale in a supermarket.
 
 ## Catalog
 ```

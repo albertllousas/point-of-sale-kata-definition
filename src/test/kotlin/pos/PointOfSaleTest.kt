@@ -2,9 +2,6 @@ package pos
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import pos.model.DisplayRecord
-import pos.model.Product
-import java.math.BigDecimal
 
 class PointOfSaleTest {
 
@@ -12,12 +9,17 @@ class PointOfSaleTest {
     fun `when a product is scanned, the price is displayed`() {
         val pos = PointOfSale()
 
-        val product = pos.scan("901234")
+        val result = pos.scan("901234")
 
-        assertThat(product).isEqualTo(Product("901234", BigDecimal.valueOf(1.50), "Chips"))
+        assertThat(result.display()).isEqualTo("1.50")
+    }
 
-        val display = pos.display(product)
+    @Test
+    fun `When a scanned product is not present, a message 'invalid product' is displayed`() {
+        val pos = PointOfSale()
 
-        assertThat(display).isEqualTo(DisplayRecord("1.50"))
+        val result = pos.scan("101234")
+
+        assertThat(result.display()).isEqualTo("invalid product")
     }
 }

@@ -1,6 +1,10 @@
 package pos.model
 
 data class ShoppingCart(
-    val products: List<Product>
+    val products: MutableList<Product> = mutableListOf()
 ) {
+
+    fun append(product: Product): Unit {
+        products.add(product)
+    }
 }

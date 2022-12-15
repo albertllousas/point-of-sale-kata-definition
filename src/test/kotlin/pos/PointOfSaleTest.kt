@@ -32,7 +32,32 @@ class PointOfSaleTest {
 
         pos.scan("901234")
 
-        val expected = ShoppingCart(listOf(Product("901234", BigDecimal.valueOf(1.50), "Chips")))
+        val expected = ShoppingCart(mutableListOf(Product("901234", BigDecimal.valueOf(1.50), "Chips")))
         assertThat(pos.shoppingCart).isEqualTo(expected)
+    }
+
+    @Test
+    fun `when two products are scanned, both are added to the same cart`() {
+        val pos = PointOfSale()
+
+        pos.scan("901234")
+        pos.scan("507780")
+
+        val expected = ShoppingCart(mutableListOf(
+            Product("901234", BigDecimal.valueOf(1.50), "Chips"),
+            Product("507780", BigDecimal.valueOf(2.35), "Red Bull")
+        ))
+        assertThat(pos.shoppingCart).isEqualTo(expected)
+    }
+
+    @Test
+    fun `If a product was added by mistake, we can remove it from the current cart by product-id`() {
+        val pos = PointOfSale()
+
+        pos.scan("901234")
+        val result = pos.remove("901234")
+
+        assertThat(result.display()).isEqualTo("-1.50")
+        assertThat(pos.shoppingCart).isEqualTo(ShoppingCart())
     }
 }

@@ -1,20 +1,30 @@
 package pos
 
-import pos.model.*
+import pos.model.DisplayRecord
+import pos.model.InvalidDisplayRecord
+import pos.model.PriceDisplayRecord
+import pos.model.Product
+import pos.model.ShoppingCart
 import java.math.BigDecimal
 
 class PointOfSale(
-    var shoppingCart: ShoppingCart = ShoppingCart(listOf())
+    val shoppingCart: ShoppingCart = ShoppingCart()
 ) {
 
     fun scan(productId: String): DisplayRecord =
-        find(productId)?.let { display(it) } ?: InvalidDisplayRecord()
+        find(productId)?.also {
+            shoppingCart.append(it)
+        }?.let {
+            display(it)
+        } ?: InvalidDisplayRecord()
 
     private fun find(productId: String) =
         products.find { it.productId == productId }
 
     private fun display(product: Product): PriceDisplayRecord =
         PriceDisplayRecord(product.price)
+
+    fun remove(productId: String): DisplayRecord = TODO()
 
     companion object {
         val products = listOf(

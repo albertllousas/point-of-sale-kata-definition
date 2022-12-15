@@ -14,25 +14,25 @@ class PointOfSale(
     fun scan(productId: String): DisplayRecord =
         find(productId)
             ?.also { shoppingCart.append(it) }
-            ?.let { display(it) }
+            ?.let { display(it.price) }
             ?: InvalidDisplayRecord()
 
     private fun find(productId: String) =
         products.find { it.productId == productId }
 
-    private fun display(product: Product): PriceDisplayRecord =
-        PriceDisplayRecord(product.price)
+    private fun display(price: BigDecimal): PriceDisplayRecord =
+        PriceDisplayRecord(price)
 
     fun remove(productId: String): DisplayRecord =
         find(productId)
             ?.also { shoppingCart.remove(it) }
-            ?.let { display(it) }
-            ?.let { it.copy(price = it.price.negate()) }
+            ?.let { display(it.price.negate()) }
             ?: InvalidDisplayRecord()
 
     fun cancelSale() = shoppingCart.clear()
 
-    fun checkOut(): DisplayRecord = TODO("TO BE IMPLEMENTED")
+    fun checkOut(): DisplayRecord =
+        shoppingCart.products.map { it.price }.reduce { a, b -> a.add(b) }.let { display(it) }
 
     companion object {
         val products = listOf(

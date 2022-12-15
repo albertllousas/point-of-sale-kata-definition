@@ -15,7 +15,7 @@ class PointOfSaleTest {
 
     @Test
     fun `when a scanned product is not present, a message 'invalid product' is displayed`() {
-        val result = PointOfSale().scan(PointOfSale.ProductId("654321"))
+        val result = PointOfSale().scan(PointOfSale.ProductId("654322"))
 
         assertThat(result).isEqualTo(PointOfSale.Display("invalid product"))
     }
@@ -23,12 +23,17 @@ class PointOfSaleTest {
     @Test
     fun `when several products are scanned, a shopping cart should contain them all`() {
         val pointOfSale = PointOfSale()
+        val productList = listOf(PointOfSale.ProductId("123456"),
+                                PointOfSale.ProductId("654321"),
+                                PointOfSale.ProductId("123456"))
 
         pointOfSale.scan(PointOfSale.ProductId("123456"))
         pointOfSale.scan(PointOfSale.ProductId("654321"))
         pointOfSale.scan(PointOfSale.ProductId("123456"))
 
-        assertThat(pointOfSale.listProducts().size).isEqualTo(3)
+        assertThat(pointOfSale.listProducts()).isEqualTo(productList)
     }
+
+
 
 }

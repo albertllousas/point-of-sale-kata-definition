@@ -13,6 +13,11 @@ class PointOfSaleTest {
         assertThat(result).isEqualTo(PointOfSale.Display("1.50"))
     }
 
+    @Test
+    fun `when a scanned product is not present, a message 'invalid product' is displayed`() {
+        val result = PointOfSale().scan(PointOfSale.ProductId(654321))
 
+        assertThat(result).isEqualTo(PointOfSale.Display("invalid product"))
+    }
 
 }

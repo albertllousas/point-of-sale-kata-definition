@@ -12,11 +12,10 @@ class PointOfSale(
 ) {
 
     fun scan(productId: String): DisplayRecord =
-        find(productId)?.also {
-            shoppingCart.append(it)
-        }?.let {
-            display(it)
-        } ?: InvalidDisplayRecord()
+        find(productId)
+            ?.also { shoppingCart.append(it) }
+            ?.let { display(it) }
+            ?: InvalidDisplayRecord()
 
     private fun find(productId: String) =
         products.find { it.productId == productId }
@@ -24,7 +23,16 @@ class PointOfSale(
     private fun display(product: Product): PriceDisplayRecord =
         PriceDisplayRecord(product.price)
 
-    fun remove(productId: String): DisplayRecord = TODO()
+    fun remove(productId: String): DisplayRecord =
+        find(productId)
+            ?.also { shoppingCart.remove(it) }
+            ?.let { display(it) }
+            ?.let { it.copy(price = it.price.negate()) }
+            ?: InvalidDisplayRecord()
+
+    fun cancelSale() {
+        TODO("Not yet implemented")
+    }
 
     companion object {
         val products = listOf(

@@ -7,4 +7,8 @@ data class ShoppingCart(
     fun append(product: Product): Unit {
         products.add(product)
     }
+
+    fun remove(product: Product) {
+        products.remove(product)
+    }
 }

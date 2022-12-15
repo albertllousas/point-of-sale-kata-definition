@@ -60,4 +60,14 @@ class PointOfSaleTest {
         assertThat(result.display()).isEqualTo("-1.50")
         assertThat(pos.shoppingCart).isEqualTo(ShoppingCart())
     }
+
+    @Test
+    fun `In any moment, we can cancel the current sale, clearing out the cart`() {
+        val pos = PointOfSale()
+
+        pos.scan("901234")
+        pos.cancelSale()
+
+        assertThat(pos.shoppingCart).isEqualTo(ShoppingCart())
+    }
 }

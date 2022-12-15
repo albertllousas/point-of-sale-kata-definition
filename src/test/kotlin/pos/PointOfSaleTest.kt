@@ -70,4 +70,16 @@ class PointOfSaleTest {
 
         assertThat(pos.shoppingCart).isEqualTo(ShoppingCart())
     }
+
+    @Test
+    fun `when the sale is finished, the point of sale will check out, calculating the total price and displaying it`(){
+        val pos = PointOfSale()
+
+        pos.scan("901234")
+        pos.scan("507780")
+
+        val result = pos.checkOut()
+
+        assertThat(result.display()).isEqualTo("3.85")
+    }
 }

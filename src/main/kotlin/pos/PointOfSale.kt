@@ -30,9 +30,9 @@ class PointOfSale(
             ?.let { it.copy(price = it.price.negate()) }
             ?: InvalidDisplayRecord()
 
-    fun cancelSale() {
-        TODO("Not yet implemented")
-    }
+    fun cancelSale() = shoppingCart.clear()
+
+    fun checkOut(): DisplayRecord = TODO("TO BE IMPLEMENTED")
 
     companion object {
         val products = listOf(

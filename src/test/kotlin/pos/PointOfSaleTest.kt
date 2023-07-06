@@ -1,5 +1,6 @@
 package pos
 
+import arrow.core.continuations.result
 import java.math.BigDecimal
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -44,7 +45,7 @@ class PointOfSaleTest {
     }
 
     @Test
-    fun `should remove product from shopping card and display price in negative when added mistakenly`() {
+    fun `should remove product from shopping cart and display price in negative when added mistakenly`() {
         pointOfSale.scan("123456")
         pointOfSale.scan("121212")
 
@@ -52,5 +53,17 @@ class PointOfSaleTest {
 
         assertThat(result).isEqualTo("-12.50")
         assertThat(pointOfSale.currentShoppingCart()).isEqualTo(listOf("121212"))
+    }
+
+    @Test
+    fun `should only remove one product if shopping cart contains the same product multiple times`() {
+        pointOfSale.scan("123456")
+        pointOfSale.scan("121212")
+        pointOfSale.scan("121212")
+        pointOfSale.remove("121212")
+
+        val result = pointOfSale.currentShoppingCart()
+
+        assertThat(result).isEqualTo(listOf("123456", "121212"))
     }
 }

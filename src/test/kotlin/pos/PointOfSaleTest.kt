@@ -8,7 +8,7 @@ class PointOfSaleTest {
     @Test
     fun `should display product price when scanned`() {
         val pointOfSale = PointOfSale()
-        val productId = "1234"
+        val productId = "12345"
 
         val result = pointOfSale.scan(productId)
 

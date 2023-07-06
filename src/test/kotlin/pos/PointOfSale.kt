@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test
 class PointOfSale {
 
     @Test
-    fun `should scan product`() {
+    fun `it works`() {
         assertThat(true).isTrue()
     }
 }

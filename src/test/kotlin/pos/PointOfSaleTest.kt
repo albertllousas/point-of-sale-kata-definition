@@ -11,7 +11,12 @@ class PointOfSaleTest {
             productId = "123456",
             price = BigDecimal("12.50"),
             description = "laptop"
-        )
+        ),
+        PointOfSale.Product(
+            productId = "121212",
+            price = BigDecimal("99.99"),
+            description = "iPhone"
+        ),
     ))
 
     @Test
@@ -28,4 +33,13 @@ class PointOfSaleTest {
         assertThat(result).isEqualTo("invalid product")
     }
 
+    @Test
+    fun `should add a product to the current digital shopping cart when scanned successfully`() {
+        pointOfSale.scan("123456")
+        pointOfSale.scan("121212")
+
+        val result = pointOfSale.currentShoppingCart()
+
+        assertThat(result).isEqualTo(listOf("123456", "121212"))
+    }
 }

@@ -42,4 +42,15 @@ class PointOfSaleTest {
 
         assertThat(result).isEqualTo(listOf("123456", "121212"))
     }
+
+    @Test
+    fun `should remove product from shopping card and display price in negative when added mistakenly`() {
+        pointOfSale.scan("123456")
+        pointOfSale.scan("121212")
+
+        val result = pointOfSale.remove("123456")
+
+        assertThat(result).isEqualTo("-12.50")
+        assertThat(pointOfSale.currentShoppingCart()).isEqualTo(listOf("121212"))
+    }
 }
